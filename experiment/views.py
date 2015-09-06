@@ -88,10 +88,13 @@ def results(request, experiment_id):
 		# TODO: combine all these requests. This doesn't scale.
 		candidates.append(Candidate.objects.get(linkedin_id__exact=c))
 
+	biases = [c for c in candidates if (float(c.blind_wins)/(c.blind_fights+0.001) > float(c.full_wins)/(c.full_fights+0.001))]
+
 	experiment = Experiment.objects.get(pk=experiment_id)
 
 	context = {
 		'candidates': list(candidates),
+		'biases': biases,
 		'pairs': pairs,
 		'experiment': experiment
 	}

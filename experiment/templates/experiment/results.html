@@ -13,19 +13,20 @@
 	</head>
 	<body>
 		<div>
-		    <a href="{% url 'index' %}" class="pure-menu-heading">LinkedIn Unconcious Bias Experiment</a>
+		    <a href="{% url 'index' %}" class="pure-menu-heading">LinkedIn Unconscious Bias Experiment</a>
 			<a href="#" class="pure-menu-link pure-menu-disabled">Results</a>
 	    </div>
 		
 		<div class="header">
-			<h1>{{ experiment.name }}</h1>
+			<h1>Experiment: {{ experiment.name }}</h1>
 		</div>
 
 		<div class="content">
 			<h2 class="content-subhead">Individual</h2>
 			{% for candidate in candidates %}
-				<div>
-					<a href="https://www.linkedin.com/profile/view?id={{ candidate }}">{{ candidate }}</a>
+				<div class="{% if candidate in biases %}biased{% endif %}">
+					<a href="https://www.linkedin.com/profile/view?id={{ candidate }}">{{ candidate.pk }}</a>
+					Won {{ candidate.blind_wins }} out of {{ candidate.blind_fights }} blind, and {{ candidate.full_wins }} out of {{ candidate.full_fights }} full.
 				</div>
 				
 			{% endfor %}

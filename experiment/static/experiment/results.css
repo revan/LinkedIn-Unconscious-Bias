@@ -31,10 +31,14 @@
     color: #888;
 }
 
-.pure-menu-disabled {
+.pure-menu-link {
     display: inline-block;
 }
 
 .pure-menu-heading {
     display: inline-block;
+}
+
+.biased {
+    background-color: #ff0000 
 }
