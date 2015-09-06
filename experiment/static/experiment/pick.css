@@ -1,0 +1,25 @@
+.linkedin_frame {
+	width:50%;
+}
+
+.button-green {
+	background: rgb(28, 184, 65);
+}
+
+.button-vote {
+	font-size: 125%;	
+	margin: 20px;	
+}
+
+.centered {
+	margin: auto;
+    /*margin-right: auto;*/
+}
+
+.pure-menu-link {
+	display: inline-block;
+}
+
+.pure-menu-heading {
+	display: inline-block;
+}

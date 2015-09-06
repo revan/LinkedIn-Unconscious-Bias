@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>LinkedIn Unoncious Bias Experiment</title>
+		<title>LinkedIn Unonscious Bias Experiment</title>
 
 		<script type="text/javascript">
 			function blank() {
@@ -13,16 +13,47 @@
 				document.getElementById('frame2').style.visibility = 'visible';
 			}
 		</script>
+
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'experiment/pick.css' %}">
+
 	</head>
 	<body>
+		<div class="pure-g">
 
-		<div class="linkedin_frame" style="float:left;width:50%">
-			<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ pair.user1 }}" id="frame1" frameborder="1" scrolling="yes" width="100%" height="100%" align="left"></iframe>
-		</div>
+			<div class="pure-u-1-1" style="height:4%">
+				<div>
+				    <a href="{% url 'index' %}" class="pure-menu-heading">LinkedIn Unconcious Bias Experiment</a>
+        			<a href="#" class="pure-menu-link">Results</a>
+			    </div>
+			</div>
 
-		<div class="linkedin_frame" style="float:right;width:50%">
-			<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ pair.user2 }}" id="frame2" frameborder="1" scrolling="yes" width="100%" height="100%" align="right" onload="blank(this)">
-			</iframe>
+			<div class="pure-u-1-1" style="display:flex;justify-content:space-between;">
+			    <a class="button-vote button-green pure-button" >
+			    	<i class="fa fa-thumbs-o-up"></i>
+			    	Left
+			    </a>
+				<a class="button-vote pure-button">
+					<i class="fa fa-ban"></i>
+			    	Skip
+			    </a>
+			    <a class="button-vote button-green pure-button">
+				    <i class="fa fa-thumbs-o-up"></i>
+					Right
+				</a>
+			</div>
+
+			<div class="linkedin_frame pure-u-1-2" style="float:left;">
+				<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ pair.user1 }}" id="frame1" frameborder="1" scrolling="yes" width="100%" height="100%" align="left"></iframe>
+			</div>
+
+			<div class="linkedin_frame pure-u-1-2" style="float:right;">
+				<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ pair.user2 }}" id="frame2" frameborder="1" scrolling="yes" width="100%" height="100%" align="right" onload="blank(this)">
+				</iframe>
+			</div>
 		</div>
 	</body>
 </html>
