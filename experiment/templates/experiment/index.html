@@ -3,19 +3,69 @@
 		<title>LinkedIn Unconscious Bias Experiment</title>
 
 		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'experiment/index.css' %}">
 	</head>
 	<body>
-		<h1>LinkedIn Unconscious Bias Experiment</h1>
 
-		{% if experiments %}
-			<ul>
-				{% for experiment in experiments %}
-				<li><a href="/experiment/{{ experiment.id }}/">{{ experiment.name }}</li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<p>No current experiments.</p>
-		{% endif %}
+		<div class="splash-container">
+		    <div class="splash">
+		        <h1 class="splash-head">LinkedIn Unconscious Bias Experiment</h1>
+		        <p class="splash-subhead">
+		            Experiments in progress:
+		        </p>
+		        <p>
+		            {% if experiments %}
+						{% for experiment in experiments %}
+						<a href="/experiment/{{ experiment.id }}/" class="pure-button pure-button-primary">{{ experiment.name }}</a>
+						{% endfor %}
+					{% else %}
+						<p>No current experiments.</p>
+					{% endif %}
+		        </p>
+		    </div>
+		</div>
+
+<div class="content-wrapper">
+    <div class="content">
+        <h2 class="content-head is-center">Who would you hire?</h2>
+
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    Meritocracies depend on rational evaluation.
+                </h3>
+                <p>
+                	Problem is, humans are *really bad* at that.</p><p>
+                	We all have unconscious biases -- we favor people resemble us economically, socially, culturally -- leading to a work culture
+                	dominated by straight white men. 
+                    
+                </p>
+
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    Traditional research on the topic involves word associations.
+                </h3>
+                <p>
+                	Called "Implicit-Association Tests", they involve sorting words into categories. This project attempts to do something different: test implicit bias using real world LinkedIn profiles.
+                </p>
+
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    An A/B testing toolbench.
+                </h3>
+                <p>
+                	This website allows running experiments where users will rank profiles against each other, first as-is for control, then with key information removed: picture and name.
+                	</p><p>
+                	An analysis screen will highlight profiles that performed better without that information, sign of bias.
+                    
+                </p>
+            </div>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        </div>
+    </div>
 
 	</body>
 </html>
