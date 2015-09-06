@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Experiment, Pair
-from .linkedin import getLinkedIn
+from .linkedin import getLinkedIn, getWhiteOut
 
 
 def index(request):
@@ -18,6 +18,7 @@ def profile(request, profile_id):
 def pick(request, experiment_id):
     pair = Pair.objects.filter(experiment_id=experiment_id)[0]
     context = {
-        'pair': pair
+        'pair': pair,
+        'whiteout': getWhiteOut
     }
     return render(request, 'experiment/pick.html', context)
