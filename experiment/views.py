@@ -22,7 +22,7 @@ def pick(request, experiment_id):
 	try:
 		winner_id = request.POST['winner_id']
 		loser_id = request.POST['loser_id']
-		blind = request.POST['blind']
+		blind = request.POST['blind'] != 'false'
 
 		winner = Candidate.objects.get(linkedin_id__exact=winner_id)
 		loser = Candidate.objects.get(linkedin_id__exact=loser_id)
@@ -80,6 +80,21 @@ def results(request, experiment_id):
 
 	candidate_ids = set()
 	for p in pairs:
-		set.add(p.user1)
+		candidate_ids.add(p.user1)
+		candidate_ids.add(p.user2)
 
+	candidates = []
+	for c in candidate_ids:
+		# TODO: combine all these requests. This doesn't scale.
+		candidates.append(Candidate.objects.get(linkedin_id__exact=c))
+
+	experiment = Experiment.objects.get(pk=experiment_id)
+
+	context = {
+		'candidates': list(candidates),
+		'pairs': pairs,
+		'experiment': experiment
+	}
+
+	return render(request, 'experiment/results.html', context)
 

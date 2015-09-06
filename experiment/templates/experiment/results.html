@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>LinkedIn Unconscious Bias Experiment</title>
+
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'experiment/results.css' %}">
+
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	</head>
+	<body>
+		<div>
+		    <a href="{% url 'index' %}" class="pure-menu-heading">LinkedIn Unconcious Bias Experiment</a>
+			<a href="#" class="pure-menu-link pure-menu-disabled">Results</a>
+	    </div>
+		
+		<div class="header">
+			<h1>{{ experiment.name }}</h1>
+		</div>
+
+		<div class="content">
+			<h2 class="content-subhead">Individual</h2>
+			{% for candidate in candidates %}
+				<div>
+					<a href="https://www.linkedin.com/profile/view?id={{ candidate }}">{{ candidate }}</a>
+				</div>
+				
+			{% endfor %}
+
+			<h2 class="content-subhead">Pairs</h2>
+			{% for pair in pairs %}
+				<div>
+					<h3>Pair #{{ pair.id }}</h3>
+					<div style="float:left;">
+						<a href="https://www.linkedin.com/profile/view?id={{ pair.user1 }}">Left</a>
+						<p>Won {{ pair.blind_wins_1 }} blind, {{ pair.full_wins_1 }} full.</p>
+					</div>
+					
+					<div style="float:right;">
+						<a href="https://www.linkedin.com/profile/view?id={{ pair.user2 }}">Right</a>						
+						<p>Won {{ pair.blind_wins_2 }} blind, {{ pair.full_wins_2 }} full.</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</body>
+</html>
