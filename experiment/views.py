@@ -52,7 +52,7 @@ def pick(request, experiment_id):
 			else:
 				pair.full_wins_2 += 1
 		pair.save()
-		
+
 	except (KeyError, Candidate.DoesNotExist, Pair.DoesNotExist):
 		print('error')
 
@@ -60,9 +60,26 @@ def pick(request, experiment_id):
 
 	blind = random.choice([True, False])
 
+	switch = random.choice([True, False])
+	user1 = pair.user1
+	user2 = pair.user2
+
 	context = {
+		'experiment_id': experiment_id,
 		'pair': pair,
+		'user1': user2 if switch else user1,
+		'user2': user1 if switch else user2,
 		'blind': blind,
 		'whiteout': getWhiteOut(blind)
 	}
 	return render(request, 'experiment/pick.html', context)
+
+
+def results(request, experiment_id):
+	pairs = Pair.objects.filter(experiment_id=experiment_id)
+
+	candidate_ids = set()
+	for p in pairs:
+		set.add(p.user1)
+
+

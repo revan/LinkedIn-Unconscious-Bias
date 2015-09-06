@@ -29,7 +29,7 @@
 			<div class="pure-u-1-1" style="height:4%">
 				<div>
 				    <a href="{% url 'index' %}" class="pure-menu-heading">LinkedIn Unconcious Bias Experiment</a>
-        			<a href="#" class="pure-menu-link">Results</a>
+        			<a href="{% url 'results' experiment_id %}" class="pure-menu-link">Results</a>
 			    </div>
 			</div>
 
@@ -51,11 +51,11 @@
 			</div>
 
 			<div class="linkedin_frame pure-u-1-2" style="float:left;">
-				<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ pair.user1 }}" id="frame1" frameborder="1" scrolling="yes" width="100%" height="100%" align="left" onload="blank(this)"></iframe>
+				<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ user1 }}" id="frame1" frameborder="1" scrolling="yes" width="100%" height="100%" align="left" onload="blank(this)"></iframe>
 			</div>
 
 			<div class="linkedin_frame pure-u-1-2" style="float:right;">
-				<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ pair.user2 }}" id="frame2" frameborder="1" scrolling="yes" width="100%" height="100%" align="right" onload="blank(this)">
+				<iframe style="visibility:hidden;" sandbox="allow-same-origin" src="../profile/{{ user2 }}" id="frame2" frameborder="1" scrolling="yes" width="100%" height="100%" align="right" onload="blank(this)">
 				</iframe>
 			</div>
 		</div>
@@ -65,12 +65,12 @@
 				window.location.reload();
 			});
 			$('#button_left').click(function(){
-				$.post('', {winner_id: "{{ pair.user1 }}", loser_id: "{{ pair.user2 }}", blind: {% if blind %}true{% else %}false{% endif %}}, function(){
+				$.post('', {winner_id: "{{ user1 }}", loser_id: "{{ user2 }}", blind: {% if blind %}true{% else %}false{% endif %}}, function(){
 					window.location.reload();
 				});
 			});
 			$('#button_right').click(function(){
-				$.post('', {winner_id: "{{ pair.user2 }}", loser_id: "{{ pair.user1 }}", blind: {% if blind %}true{% else %}false{% endif %}}, function(){
+				$.post('', {winner_id: "{{ user2 }}", loser_id: "{{ user1 }}", blind: {% if blind %}true{% else %}false{% endif %}}, function(){
 					window.location.reload();
 				});
 			});
