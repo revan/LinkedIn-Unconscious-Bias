@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>LinkedIn Unoncious Bias Experiment</title>
+	</head>
+	<body>
+
+		<div class="linkedin_frame" style="float:left;width:50%">
+			<iframe sandbox src="../profile/{{ pair.user1 }}" id="frame1" frameborder="1" scrolling="yes" width="100%" height="100%" align="left"></iframe>
+		</div>
+
+		<div class="linkedin_frame" style="float:right;width:50%">
+			<iframe sandbox src="../profile/{{ pair.user2 }}" frameborder="1" scrolling="yes" width="100%" height="100%" align="right">
+			</iframe>
+		</div>
+	</body>
+</html>
