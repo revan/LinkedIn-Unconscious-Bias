@@ -1,8 +1,11 @@
+from django.template import RequestContext
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Experiment, Pair
+from .models import Candidate, Experiment, Pair
 from .linkedin import getLinkedIn, getWhiteOut
+
+import random
 
 
 def index(request):
@@ -16,9 +19,50 @@ def profile(request, profile_id):
 
 
 def pick(request, experiment_id):
-    pair = Pair.objects.filter(experiment_id=experiment_id)[0]
-    context = {
-        'pair': pair,
-        'whiteout': getWhiteOut
-    }
-    return render(request, 'experiment/pick.html', context)
+	try:
+		winner_id = request.POST['winner_id']
+		loser_id = request.POST['loser_id']
+		blind = request.POST['blind']
+
+		winner = Candidate.objects.get(linkedin_id__exact=winner_id)
+		loser = Candidate.objects.get(linkedin_id__exact=loser_id)
+
+		if blind:
+			winner.blind_wins += 1
+			winner.blind_fights += 1
+			loser.blind_fights += 1
+		else:
+			winner.full_wins += 1
+			winner.full_fights += 1
+			loser.full_fights += 1
+
+		winner.save()
+		loser.save()
+
+		lesser = min((winner_id, winner), (loser_id, loser))[1]
+		pair = Pair.objects.get(user1_id=lesser.id)
+		if lesser.id == winner_id:
+			if blind:
+				pair.blind_wins_1 += 1
+			else:
+				pair.full_wins_1 += 1
+		else:
+			if blind:
+				pair.blind_wins_2 += 1
+			else:
+				pair.full_wins_2 += 1
+		pair.save()
+		
+	except (KeyError, Candidate.DoesNotExist, Pair.DoesNotExist):
+		print('error')
+
+	pair = Pair.objects.filter(experiment_id=experiment_id)[0]
+
+	blind = random.choice([True, False])
+
+	context = {
+		'pair': pair,
+		'blind': blind,
+		'whiteout': getWhiteOut(blind)
+	}
+	return render(request, 'experiment/pick.html', context)
