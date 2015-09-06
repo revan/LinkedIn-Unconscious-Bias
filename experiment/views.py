@@ -40,23 +40,30 @@ def pick(request, experiment_id):
 		loser.save()
 
 		lesser = min((winner_id, winner), (loser_id, loser))[1]
-		pair = Pair.objects.get(user1_id=lesser.id)
-		if lesser.id == winner_id:
-			if blind:
-				pair.blind_wins_1 += 1
-			else:
-				pair.full_wins_1 += 1
-		else:
+		greater= min((winner_id, winner), (loser_id, loser))[1]
+
+		try1 = Pair.objects.filter(user1_id=loser.id).filter(user2_id=winner.id)
+		try2 = Pair.objects.filter(user2_id=loser.id).filter(user1_id=winner.id)
+
+		if len(try1) > 0:
+			pair = try1[0]
 			if blind:
 				pair.blind_wins_2 += 1
 			else:
 				pair.full_wins_2 += 1
+		else:
+			pair = try2[0]
+			if blind:
+				pair.blind_wins_1 += 1
+			else:
+				pair.full_wins_1 += 1
+
 		pair.save()
 
 	except (KeyError, Candidate.DoesNotExist, Pair.DoesNotExist):
 		print('error')
 
-	pair = Pair.objects.filter(experiment_id=experiment_id)[0]
+	pair = random.choice(list(Pair.objects.filter(experiment_id=experiment_id)))
 
 	blind = random.choice([True, False])
 

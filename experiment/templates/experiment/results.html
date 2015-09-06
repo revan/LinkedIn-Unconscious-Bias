@@ -33,7 +33,7 @@
 
 			<h2 class="content-subhead">Pairs</h2>
 			{% for pair in pairs %}
-				<div>
+				
 					<h3>Pair #{{ pair.id }}</h3>
 					<div style="float:left;">
 						<a href="https://www.linkedin.com/profile/view?id={{ pair.user1 }}">Left</a>
@@ -44,7 +44,8 @@
 						<a href="https://www.linkedin.com/profile/view?id={{ pair.user2 }}">Right</a>						
 						<p>Won {{ pair.blind_wins_2 }} blind, {{ pair.full_wins_2 }} full.</p>
 					</div>
-				</div>
+				<br/><br/><br/>
+
 			{% endfor %}
 		</div>
 	</body>
